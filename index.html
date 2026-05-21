@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>AI Cataract Risk Assessment</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>y
+
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar">
+    <div class="logo">Vision<span>AI</span></div>
+    <ul class="nav-links">
+        <li><a href="#Home">Home</a></li>
+        <li><a href="/about">About</a></li>
+        <li><a href="#selfTestSection">Self-Test</a></li>
+        <li><a href="#imageSection">AI Diagnosis</a></li>
+    </ul>
+</nav>
+
+<!-- HERO -->
+<section id="Home" class="hero reveal">
+    <div class="hero-content">
+        <h1>AI Cataract Screening Platform</h1>
+        <h2>Cataract Diagnosis Made Easy: Your Vision Health Companion</h2>
+        <p>Unlock clarity and safeguard your sight with our innovative AI-powered cataract diagnostic tool.</p>
+        <p>Early detection is key to preserving vision and we're here to help.</p>
+        <a href="#selfTestSection" class="primary-btn">Start Self-Test</a>
+    </div>
+</section>
+
+<!-- INFO SECTION -->
+<section class="info-section reveal">
+    <div class="info-container">
+        <div class="info-text">
+            <h2>Cataracts: Understanding Your Vision Needs</h2>
+            <p>
+                A cataract is a condition in which the clear lens of the eye becomes cloudy, leading to blurred or reduced vision. It commonly occurs with aging when proteins in the lens break down and clump together, reducing the lens’s transparency. The lens, located behind the iris, normally helps focus light onto the retina for clear vision. Symptoms include blurry vision, difficulty seeing at night, sensitivity to bright lights, faded colors, and frequent changes in eyeglass power. Although it develops gradually and is painless, untreated cataracts can significantly affect daily activities. However, vision can usually be restored through a safe and effective surgical procedure that replaces the cloudy lens with an artificial one.
+
+            </p>
+        </div>
+        <div class="info-image"></div>
+    </div>
+</section>
+
+<!-- PARALLAX SYMPTOMS -->
+<section class="symptoms-section reveal">
+
+    <div class="symptoms-container">
+
+        <h2><strong>Common Symptoms of Cataracts</strong></h2>
+
+        <p>
+            Cataracts develop gradually and cause cloudy vision as the eye’s natural lens becomes opaque.
+            As the condition progresses, everyday activities such as reading or driving may become difficult.
+            Early detection is important for timely medical consultation and preventing further vision loss.
+        </p>
+
+        <ul>
+            <li><strong>Blurred or Cloudy Vision:</strong></li>
+            <li><strong>Increased Glare from Lights:</strong></li>
+            <li><strong>Difficulty Seeing at Night:</strong></li>
+            <li><strong>Colors Appearing Faded:</strong></li>
+            <li><strong>Frequent Prescription Changes:</strong></li>
+        </ul>
+
+        <p class="symptom-note">
+            If you experience these symptoms, consult an eye specialist for a proper diagnosis.
+        </p>
+
+    </div>
+
+</section>
+
+<!-- SELF TEST SECTION -->
+<section id="selfTestSection" class="assessment-section reveal">
+
+    <div class="assessment-header">
+        <h2>Cataract Risk Self-Assessment</h2>
+        <p>Answer the questions below to evaluate your vision health.</p>
+    </div>
+
+    <div class="flashcard-container">
+        <div class="flashcard" id="card">
+            <div class="card-inner">
+
+                <!-- FRONT -->
+                <div class="card-front">
+                    <p id="questionText"></p>
+                    <button class="next-btn" onclick="flipCard()">Answer</button>
+                </div>
+
+                <!-- BACK -->
+                <div class="card-back">
+                    <p>Select your response</p>
+                    <button class="option-btn" onclick="selectAnswer(event, 2)">Yes</button>
+                    <button class="option-btn" onclick="selectAnswer(event, 1)">Sometimes</button>
+                    <button class="option-btn" onclick="selectAnswer(event, 0)">No</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</section>
+
+<!-- Upload Section -->
+
+<section id="imageSection" class="upload-section">
+
+    <div class="upload-card">
+
+        <div class="header">
+            <h2>Upload Your Eye Image</h2>
+            <p>Upload a retinal fundus image or capture using live camera for AI-based cataract detection.</p>
+        </div>
+
+        <!-- Upload & Camera Controls -->
+        <div class="controls">
+
+            <!-- FILE UPLOAD -->
+            <label for="imageUpload" class="file-label">
+                <span>Select Image</span>
+                <input type="file" id="imageUpload" accept="image/*">
+            </label>
+
+            <!-- CAMERA BUTTON -->
+            <button class="btn secondary-btn" onclick="startCamera()">
+                Use Live Camera
+            </button>
+
+        </div>
+
+        <!-- PREVIEW SECTION -->
+        <div id="previewContainer" class="preview-container hidden">
+            <img id="previewImage" alt="Preview Image">
+            <p id="fileName" class="file-name"></p>
+        </div>
+
+        <!-- Camera Section -->
+        <div class="camera-box hidden" id="cameraBox">
+            <video id="video" autoplay></video>
+            <button class="btn capture-btn" onclick="captureImage()">
+                Capture Image
+            </button>
+        </div>
+
+        <!-- Image Preview -->
+        <div class="preview-box">
+            <canvas id="canvas" class="hidden"></canvas>
+        </div>
+
+        <!-- Analyze Button -->
+        <div class="analyze-section">
+            <button class="btn primary-btn" onclick="analyzeImage()">
+                Analyze Image
+            </button>
+        </div>
+
+        <p id="resultText" class="result-text"></p>
+
+    </div>
+
+</section>
+
+<!-- WHY SELF TEST SECTION -->
+<section class="why-test-section">
+
+    <div class="why-test-container">
+
+        <!-- LEFT CONTENT -->
+        <div class="why-test-text">
+            <h2>Why Take the Cataract Self-Test?</h2>
+
+            <p>
+                Early detection of cataract symptoms can help prevent serious
+                vision complications. Many people ignore early warning signs
+                such as blurred vision, difficulty seeing at night, or
+                sensitivity to light.
+            </p>
+
+            <p>
+                This AI-based self-assessment helps you evaluate common risk
+                indicators quickly and safely from your home. While it does
+                not replace professional diagnosis, it provides an early
+                screening to guide your next steps.
+            </p>
+
+            <ul>
+                <li>✔ Identify early warning signs</li>
+                <li>✔ Understand your potential risk level</li>
+                <li>✔ Decide when to consult an eye specialist</li>
+                <li>✔ Take proactive steps for eye health</li>
+            </ul>
+
+            <p class="why-note">
+                <strong>Note:</strong> This self-test is for awareness purposes
+                only and should not replace a clinical eye examination.
+            </p>
+        </div>
+
+        <!-- RIGHT IMAGE -->
+        <div class="why-test-image"></div>
+
+    </div>
+
+</section>  
+
+<!-- Footer -->
+<footer>
+<p>© 2026 VisionAI | AI Cataract Screening Platform</p>
+</footer>
+
+<script src="{{ url_for('static', filename='script.js') }}"></script>
+
+</body>
+</html>
